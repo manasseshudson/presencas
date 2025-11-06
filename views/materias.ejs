@@ -34,9 +34,8 @@
 		  <div class="aluno-item flex justify-between items-center bg-white border rounded-xl px-5 py-3 shadow-sm">
 			<div>
 			  <p class="font-semibold text-gray-900 nome-aluno"><%= dados.descricao %></p>
-			  <p class="text-gray-400 text-sm status"><%= dados.id_materia %></p>
 			</div>
-			<button class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg marcar-btn" onclick="marcarPresenca(<%= dados.id_materia %>)">
+			<button class="bg-red-500 hover:bg-red-600 text-white font-light px-2 py-1 rounded-lg marcar-btn" onclick="marcarPresenca(<%= dados.id_materia %>)">
 			  Lista de Alunos
 			</button>
 		  </div>
