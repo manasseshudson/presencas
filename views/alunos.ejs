@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Presença</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-10">
+	<div class="bg-white shadow-md rounded-2xl w-11/12 md:w-3/4 lg:w-1/2 p-8">
+		<div class="flex items-center justify-between mb-4">
+		  <div>
+			<h1 class="text-2xl font-bold">Lista de Presença</h1>
+			<p class="text-sm text-gray-500">Desenvolvimento Web Avançado</p>
+			<div class="flex items-center gap-4 mb-6">
+			<span class="flex items-center gap-1 text-green-600 font-semibold">
+				<span class="w-2 h-2 rounded-full bg-green-600"></span>
+				Presente: <span id="presentes"><%= Presente %></span>
+			</span>
+			<span class="flex items-center gap-1 text-gray-400 font-semibold">
+				<span class="w-2 h-2 rounded-full bg-gray-400"></span>
+				Ausente: <span id="ausentes"><%= Ausente %></span>
+			</span>
+		</div>
+		  </div>
+
+		  <a href="/materias" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow">Voltar para Matérias</a>
+		  
+		</div>
+	
+		
+		<!-- Campo de pesquisa -->
+		<div class="mb-6">
+		  <input
+			type="text"
+			id="pesquisa"
+			placeholder="Pesquisar aluno..."
+			class="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+		  >
+		</div>
+		<!-- Lista de alunos -->
+		<div id="lista" class="flex flex-col gap-3">
+		  <% alunos.forEach(dados => { %>
+		  <div class="aluno-item flex justify-between items-center bg-white border rounded-xl px-5 py-3 shadow-sm">
+			<div>
+			  <p class="font-semibold text-gray-900 nome-aluno"><%= dados.nome %></p>
+			  <p class="text-gray-400 text-sm status"></p>
+			</div>
+			<button class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-4 py-2 rounded-lg marcar-btn" onclick="marcarPresenca(<%= dados.id_aluno %>)">
+			  Marcar Presente
+			</button>
+		  </div>
+		  <% }) %>
+		</div>
+  </div>
+</body>
+<script>
+	const pesquisa = document.getElementById("pesquisa");
+	
+	function marcarPresenca(id_aluno) {
+		//alert(id_aluno)
+		
+		horaAtual();
+		dataAtualFormatada();
+		
+		
+		const postData = {
+			id_aluno,
+			data: dataAtualFormatada(),
+			hora: horaAtual()
+		};
+		
+		fetch('/marcarPresenca', {
+		  method: 'POST', // Specify the HTTP method
+		  headers: {
+			'Content-Type': 'application/json' // Indicate the content type of the body
+		  },
+		  body: JSON.stringify(postData) // Convert the JavaScript object to a JSON string
+		})
+		.then(response => {
+		  if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		  }
+		  return response.json(); // Parse the JSON response
+		})
+		.then(data => {
+			console.log('Success:', data); // Handle the successful response data
+			setTimeout(() => {
+				window.location.href = "/listagem"; // redireciona para a página da lista de presença
+			}, 1500);
+		  
+		})
+		.catch(error => {
+		  console.error('Error:', error); // Handle any errors during the fetch operation
+		});
+	}
+	
+	
+	function horaAtual (){
+			var data = new Date();
+
+			// Guarda cada pedaço em uma variável
+			var dia     = data.getDate();           // 1-31
+			var dia_sem = data.getDay();            // 0-6 (zero=domingo)
+			var mes     = data.getMonth();          // 0-11 (zero=janeiro)
+			var ano2    = data.getYear();           // 2 dígitos
+			var ano4    = data.getFullYear();       // 4 dígitos
+			var hora    = data.getHours();          // 0-23
+			var min     = data.getMinutes();        // 0-59
+			var seg     = data.getSeconds();        // 0-59
+			var mseg    = data.getMilliseconds();   // 0-999
+			var tz      = data.getTimezoneOffset(); // em minutos
+			
+			// Formata a data e a hora (note o mês + 1)
+			//var str_data = dia + '/' + (mes+1) + '/' + ano4;
+			//var str_data = ano4 + '-' + (mes+1) + '-' + dia;
+			
+			if(hora<10){
+				hora= "0"+hora	
+			}
+			var str_hora = hora + ':' + min + ':' + seg;
+			
+			
+			if(dia<10){
+				dia="0"+dia;	
+			}
+			var str_data = dia + '/' + (mes+1) + '/' +  ano4;
+			// Mostra o resultado
+			//alert('Hoje é ' + str_data + ' às ' + str_hora);
+			//return str_data + ' ' +str_hora;
+			return str_hora;
+
+		}
+		
+		
+		function dataAtualFormatada(){
+			var data = new Date(),
+				dia  = data.getDate().toString(),
+				diaF = (dia.length == 1) ? '0'+dia : dia,
+				mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+				mesF = (mes.length == 1) ? '0'+mes : mes,
+				anoF = data.getFullYear();
+
+			//return anoF+"-"+mesF+"-"+diaF;
+			return diaF+"/"+mesF+"/"+anoF;
+		}
+	
+	
+	// Função de pesquisa em tempo real
+  pesquisa.addEventListener("input", () => {
+    const termo = pesquisa.value.toLowerCase();
+    const alunos = document.querySelectorAll(".aluno-item");
+
+    alunos.forEach(item => {
+      const nome = item.querySelector(".nome-aluno").textContent.toLowerCase();
+
+		
+
+      // Se o nome contém o termo, exibe; caso contrário, esconde
+      if (nome.includes(termo)) {
+        item.style.display = "flex";
+      } else {
+        item.style.display = "none";
+      }
+    });
+  });
+</script>
+</html>
