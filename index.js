@@ -80,59 +80,77 @@ app.get('/materias',(req,res)=>{
 })
 
 
-app.get('/alunos/:id_materia',(req,res)=>{
+app.get('/alunos/:id_materia',async (req,res)=>{
 	const { id_materia } = req.params;
-	
-	
-	console.log('id da materia :' +id_materia)
-	
 	let Ausente = 0;
-	let Presente ="10";
 	
 	const data = dayjs(); // Data e hora atuais
     const dataFormatada = data.format('YYYY-MM-DD');
 	const dataF = data.format('DD/MM/YYYY');
 	
-	//console.log(dataF)
-	//console.log(dataFormatada)
 	
-	knex('tb_materia').where({id_materia}).select().then(result=>{
-		console.log(result)
-		console.log(result[0].id_modulo)
-		
-		knex('tb_aluno').where({id_modulo: result[0].id_modulo }).select().then( alunos => {
+	const qtde_presenca = await knex('tb_presenca_aula_aluno_presencial').where({data: dataF})
+	.andWhere('tb_presenca_aula_aluno_presencial.id_materia','=', id_materia)
+	.select();
+	
+	/*knex('tb_materia').where({id_materia}).select().then(result=>{
+		knex('tb_aluno')
+		.leftJoin('tb_presenca_aula_aluno_presencial','tb_presenca_aula_aluno_presencial.id_aluno','tb_aluno.id_aluno')
+		.where({id_modulo: result[0].id_modulo })
+		//.andWhere('tb_presenca_aula_aluno_presencial.id_materia','<>', id_materia)		
+		//.andWhere('tb_presenca_aula_aluno_presencial.id_materia',null)
+		.debug(true)		
+		.select('tb_aluno.id_aluno','tb_aluno.nome').then( alunos => {
+			//console.log(alunos)
 			res.render('alunos', {
 				alunos,
-				Presente,
-				Ausente	
+				Presente: qtde_presenca.length,
+				Ausente,
+				id_materia				
 			})
 		})
-	})
-
+	})*/
+	knex('tb_materia').where({ id_materia }).select().then(result => {
+		knex('tb_aluno').whereNotIn('id_aluno', function() {
+			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
+		})
+      .then(alunos => {
+			console.log(alunos);
+			res.render('alunos', {
+				alunos,
+				Presente: qtde_presenca.length,
+				Ausente,
+				id_materia
+			});
+      })
+      .catch(err => console.error(err));
+      
+  })
+  .catch(err => console.error(err));
 
 })
 
 
 
-app.post('/marcarPresenca',(req,res)=>{
-	const {id_aluno, data, hora } = req.body;
+app.post('/marcarPresenca',async (req,res)=>{
+	const {id_aluno, id_materia,data, hora } = req.body;
 	
-	//const data = dayjs(); // Data e hora atuais
-    //const dataFormatada = data.format('YYYY-MM-DD');
-
-    
-	//const data = dayjs(); // Data e hora atuais
-    //const dataFormatada = data.format('YYYY-MM-DD');
-	//const dataF = data.format('DD/MM/YYYY');
-	console.log('Data :'+data); // Exemplo: 2024-05-16	
-	console.log('Hora: '+hora)
-	console.log('id Aluno :'+id_aluno)
+	try{
 	
-	
-	
-	
-	
-	
+		const presenca = await knex('tb_presenca_aula_aluno_presencial')
+		.insert({
+			id_aluno,
+			id_materia,
+			id_aula: 0,
+			data,
+			hora		
+		});
+		res.status(200).send({mensagem : "Presença marcada com sucesso."});
+		
+	}catch(error){
+		console.log(error)
+		
+	}
 })
 
 

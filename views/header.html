@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Presença</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-start min-h-screen py-10">
+
+  <div class="bg-white shadow-md rounded-2xl w-full max-w-3xl overflow-hidden">
+    
+    <!-- HEADER -->
+    <header class="flex justify-between items-center bg-gray-50 border-b px-6 py-4">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-800">Lista de Presença</h2>
+        <p class="text-gray-600 text-sm">Desenvolvimento Web Avançado</p>
+      </div>
+
+      <button class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg transition">
+        Voltar
+      </button>
+    </header>
+
+    <!-- STATUS -->
+    <div class="flex items-center gap-4 px-6 mt-3 text-sm">
+      <span class="text-green-600 font-semibold">● Presente: 10</span>
+      <span class="text-gray-500">● Ausente: 0</span>
+    </div>
+
+    <!-- CAMPO DE PESQUISA -->
+    <div class="px-6 mt-4 mb-6">
+      <input
+        type="text"
+        placeholder="Pesquisar aluno..."
+        class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+      >
+    </div>
+
+    <!-- LISTA DE ALUNOS -->
+    <div id="lista" class="flex flex-col gap-3 px-6 pb-6">
+      <div class="flex justify-between items-center border rounded-xl px-4 py-3">
+        <span>Francisco Clarete</span>
+        <button class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-1 rounded-lg text-sm font-medium">Presença</button>
+      </div>
+
+      <div class="flex justify-between items-center border rounded-xl px-4 py-3">
+        <span>Adriana Bara da Silva Catarino</span>
+        <button class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-1 rounded-lg text-sm font-medium">Presença</button>
+      </div>
+
+      <div class="flex justify-between items-center border rounded-xl px-4 py-3">
+        <span>Andreia Aparecida Gomes da Silva</span>
+        <button class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-1 rounded-lg text-sm font-medium">Presença</button>
+      </div>
+      <!-- adicione mais alunos conforme necessário -->
+    </div>
+  </div>
+
+</body>
+</html>

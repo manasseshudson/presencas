@@ -7,7 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center py-10">
+	
+	
 	<div class="bg-white shadow-md rounded-2xl w-11/12 md:w-3/4 lg:w-1/2 p-8">
+	
+	
+	
 		<div class="flex items-center justify-between mb-4">
 		  <div>
 			<h1 class="text-2xl font-bold">Lista de Presença</h1>
@@ -17,10 +22,10 @@
 				<span class="w-2 h-2 rounded-full bg-green-600"></span>
 				Presente: <span id="presentes"><%= Presente %></span>
 			</span>
-			<span class="flex items-center gap-1 text-gray-400 font-semibold">
+			<!--<span class="flex items-center gap-1 text-gray-400 font-semibold">
 				<span class="w-2 h-2 rounded-full bg-gray-400"></span>
 				Ausente: <span id="ausentes"><%= Ausente %></span>
-			</span>
+			</span>-->
 		</div>
 		  </div>
 
@@ -66,6 +71,7 @@
 		
 		const postData = {
 			id_aluno,
+			id_materia: <%= id_materia %>,
 			data: dataAtualFormatada(),
 			hora: horaAtual()
 		};
@@ -78,6 +84,7 @@
 		  body: JSON.stringify(postData) // Convert the JavaScript object to a JSON string
 		})
 		.then(response => {
+			
 		  if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		  }
@@ -86,8 +93,8 @@
 		.then(data => {
 			console.log('Success:', data); // Handle the successful response data
 			setTimeout(() => {
-				window.location.href = "/listagem"; // redireciona para a página da lista de presença
-			}, 1500);
+				window.location.href = "/alunos/"+<%= id_materia %>; // redireciona para a página da lista de presença
+			}, 1);
 		  
 		})
 		.catch(error => {
