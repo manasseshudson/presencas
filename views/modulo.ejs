@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Presença</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-10">
+	<div class="bg-white shadow-md rounded-2xl w-11/12 md:w-3/4 lg:w-1/2 p-8">
+		<div class="flex items-center justify-between mb-4">
+		  <div>
+			<h1 class="text-2xl font-bold">Lista dos Módulos</h1>
+			<div class="flex items-center gap-4 mb-6">
+			
+		</div>
+		  </div>
+
+		  
+		  <div class="flex justify-center gap-4 mb-6">
+			  <a href="/"
+				class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold px-5 py-2 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+			  >
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+				</svg>
+				Sair
+			  </a>
+			</div>
+		</div>
+	
+		<!-- Lista de alunos -->
+		<div id="lista" class="flex flex-col gap-3">
+		  
+		  <div class="aluno-item flex justify-between items-center bg-white border rounded-xl px-5 py-3 shadow-sm">
+			<div>
+			  <p class="font-semibold text-gray-900 nome-aluno">1º Ano</p>
+			</div>
+			
+			
+			<a href="/materias/1"
+			  class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-300"
+			>
+			  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+			  </svg>
+			  Matérias
+			</a>
+			
+		  </div>
+		  
+		  <div class="aluno-item flex justify-between items-center bg-white border rounded-xl px-5 py-3 shadow-sm">
+			<div>
+			  <p class="font-semibold text-gray-900 nome-aluno">2º Ano</p>
+			</div>
+			<a href="/materias/2"
+			  class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-300"
+			>
+			  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+			  </svg>
+			  Matérias
+			</a>
+		  </div>
+		  
+		  
+		  <div class="aluno-item flex justify-between items-center bg-white border rounded-xl px-5 py-3 shadow-sm">
+			<div>
+			  <p class="font-semibold text-gray-900 nome-aluno">Ensino Médio</p>
+			</div>
+			<a href="/materias/3"
+			  class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-300"
+			>
+			  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+			  </svg>
+			  Matérias
+			</a>
+		  </div>
+		  
+		  
+		</div>
+  </div>
+</body>
+<script>
+	const pesquisa = document.getElementById("pesquisa");
+	
+	function marcarPresenca(id_materia) {
+		//alert(id_materia)
+		setTimeout(() => {
+			window.location.href = "/alunos/"+id_materia; // redireciona para a página da lista de presença
+		}, 10);
+		  
+		
+	}
+	
+	// Função de pesquisa em tempo real
+	pesquisa.addEventListener("input", () => {
+		const termo = pesquisa.value.toLowerCase();
+		const alunos = document.querySelectorAll(".aluno-item");
+
+		alunos.forEach(item => {
+		  const nome = item.querySelector(".nome-aluno").textContent.toLowerCase();
+
+			
+
+		  // Se o nome contém o termo, exibe; caso contrário, esconde
+		  if (nome.includes(termo)) {
+			item.style.display = "flex";
+		  } else {
+			item.style.display = "none";
+		  }
+		});
+	});
+</script>
+</html>

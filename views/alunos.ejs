@@ -29,8 +29,26 @@
 		</div>
 		  </div>
 
-		  <a href="/materias" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow">Voltar</a>
 		  
+		  <div class="flex justify-center gap-4 mb-6">
+			  <a href="/materias/<%= modulo %>"
+				class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold px-5 py-2 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+			  >
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+				</svg>
+				Matérias
+			  </a>
+
+			  <a href="/"
+				class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold px-5 py-2 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+			  >
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+				</svg>
+				Sair
+			  </a>
+			</div>
 		</div>
 	
 		
@@ -51,9 +69,15 @@
 			  <p class="font-semibold text-gray-900 nome-aluno"><%= dados.nome %></p>
 			  <p class="text-gray-400 text-sm status"></p>
 			</div>
-			<button class="bg-emerald-500 hover:bg-emerald-600 text-white font-light px-2 py-1 rounded-lg marcar-btn" onclick="marcarPresenca(<%= dados.id_aluno %>)">
-			  Presença
-			</button>
+			
+			<button onclick="marcarPresenca(<%= dados.id_aluno %>)"
+  class="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+  </svg>
+  Presença
+</button>
 		  </div>
 		  <% }) %>
 		</div>
@@ -93,7 +117,7 @@
 		.then(data => {
 			console.log('Success:', data); // Handle the successful response data
 			setTimeout(() => {
-				window.location.href = "/alunos/"+<%= id_materia %>; // redireciona para a página da lista de presença
+				window.location.href = "/alunos/"+<%= id_materia %>+"/"+<%= modulo %>; // redireciona para a página da lista de presença
 			}, 1);
 		  
 		})

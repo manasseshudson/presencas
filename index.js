@@ -34,8 +34,6 @@ app.use((req, res, next) => {
 const title = 'IBADEJUF EAD'
 const title_adm = ""
 
-const login = require('./login');
-const adm = require('./adm');
 
 app.get('/', (req,res)=>{ 
 	res.render('login')
@@ -51,37 +49,38 @@ app.post('/login',(req,res)=>{
 		res.status(200).send({mensagem : "Login Efetuado com sucesso."});
 	}
 })
-
-
-app.get('/adm',(req,res)=>{
-	
-	res.render('adm')
-	
-	
+app.get('/modulo',(req,res)=>{
+		res.render('modulo')
 })
 
-
-app.get('/materias',(req,res)=>{
-	let Ausente = 0;
-	let Presente ="10";
+app.get('/materias/:id_modulo',(req,res)=>{
+	const { id_modulo } = req.params;
 	
-	const data = dayjs(); // Data e hora atuais
-    const dataFormatada = data.format('YYYY-MM-DD');
-	const dataF = data.format('DD/MM/YYYY');
+	let titulo ="";
+	if (id_modulo=="1"){
+		titulo = "Matérias do 1º Ano "
+	}
+	if (id_modulo=="2"){
+		titulo = "Matérias do 2º Ano "
+	}
+	if (id_modulo=="3"){
+		titulo = "Matérias do Ensino Médio "
+	}
 	
-	//knex('tb_materia').where({id_modulo: 1}).select().then(materias=>{
-	knex('tb_materia').select().then(materias=>{
+	
+	knex('tb_materia').where({id_modulo}).select().then(materias=>{
 		console.log(materias)
 		res.render('materias', {
+			id_modulo,
 			materias,
-			titulo: ""
+			titulo
 		})
 	})
 })
 
 
-app.get('/alunos/:id_materia',async (req,res)=>{
-	const { id_materia } = req.params;
+app.get('/alunos/:id_materia/:id_modulo',async (req,res)=>{
+	const { id_materia, id_modulo } = req.params;
 	let Ausente = 0;
 	
 	const data = dayjs(); // Data e hora atuais
@@ -115,12 +114,13 @@ app.get('/alunos/:id_materia',async (req,res)=>{
 			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
 		})
       .then(alunos => {
-			console.log(alunos);
+			console.log(alunos[0].id_modulo);
 			res.render('alunos', {
 				alunos,
 				Presente: qtde_presenca.length,
 				Ausente,
-				id_materia
+				id_materia,
+				modulo: id_modulo
 			});
       })
       .catch(err => console.error(err));

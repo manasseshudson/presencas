@@ -11,13 +11,30 @@
 		<div class="flex items-center justify-between mb-4">
 		  <div>
 			<h1 class="text-2xl font-bold">Lista de Matérias</h1>
+			<p class="text-sm text-gray-500"><%= titulo %></p>
 			<div class="flex items-center gap-4 mb-6">
 			
 		</div>
 		  </div>
+<div class="flex justify-center gap-4 mb-6">
+  <a href="/modulo"
+    class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold px-5 py-2 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+    </svg>
+    Módulos
+  </a>
 
-		  <a href="/" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow">Sair</a>
-		  
+  <a href="/"
+    class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold px-5 py-2 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+    </svg>
+    Sair
+  </a>
+</div>
 		</div>
 	
 		<div class="mb-6">
@@ -35,7 +52,13 @@
 			<div>
 			  <p class="font-semibold text-gray-900 nome-aluno"><%= dados.descricao %></p>
 			</div>
-			<button class="bg-red-500 hover:bg-red-600 text-white font-light px-2 py-1 rounded-lg marcar-btn" onclick="marcarPresenca(<%= dados.id_materia %>)">
+			<button onclick="marcarPresenca(<%= dados.id_materia %>)"
+			  class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-300"
+			>
+			  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2h5m6 0h4" />
+				<circle cx="9" cy="7" r="4" stroke-width="2" stroke="currentColor" fill="none" />
+			  </svg>
 			  Alunos
 			</button>
 		  </div>
@@ -49,7 +72,7 @@
 	function marcarPresenca(id_materia) {
 		//alert(id_materia)
 		setTimeout(() => {
-			window.location.href = "/alunos/"+id_materia; // redireciona para a página da lista de presença
+			window.location.href = "/alunos/"+id_materia+"/"+<%= id_modulo %>; // redireciona para a página da lista de presença
 		}, 10);
 		  
 		
