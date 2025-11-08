@@ -69,7 +69,7 @@ app.get('/materias/:id_modulo',(req,res)=>{
 	
 	
 	knex('tb_materia').where({id_modulo}).select().then(materias=>{
-		console.log(materias)
+		console.log(id_modulo)
 		res.render('materias', {
 			id_modulo,
 			materias,
@@ -92,29 +92,14 @@ app.get('/alunos/:id_materia/:id_modulo',async (req,res)=>{
 	.andWhere('tb_presenca_aula_aluno_presencial.id_materia','=', id_materia)
 	.select();
 	
-	/*knex('tb_materia').where({id_materia}).select().then(result=>{
-		knex('tb_aluno')
-		.leftJoin('tb_presenca_aula_aluno_presencial','tb_presenca_aula_aluno_presencial.id_aluno','tb_aluno.id_aluno')
-		.where({id_modulo: result[0].id_modulo })
-		//.andWhere('tb_presenca_aula_aluno_presencial.id_materia','<>', id_materia)		
-		//.andWhere('tb_presenca_aula_aluno_presencial.id_materia',null)
-		.debug(true)		
-		.select('tb_aluno.id_aluno','tb_aluno.nome').then( alunos => {
-			//console.log(alunos)
-			res.render('alunos', {
-				alunos,
-				Presente: qtde_presenca.length,
-				Ausente,
-				id_materia				
-			})
-		})
-	})*/
 	knex('tb_materia').where({ id_materia }).select().then(result => {
 		knex('tb_aluno').whereNotIn('id_aluno', function() {
 			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
 		})
       .then(alunos => {
-			console.log(alunos[0].id_modulo);
+			
+		  
+			console.log(alunos);
 			res.render('alunos', {
 				alunos,
 				Presente: qtde_presenca.length,
