@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matérias</title>
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- jQuery e jQuery Mobile -->
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <style>
+    body {
+      background-color: #f9fafb;
+      font-family: 'Inter', sans-serif;
+    }
+    .card {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border-radius: 1rem;
+    }
+  </style>
+</head>
+<body class="flex justify-center p-6">
+
+  <div class="w-full max-w-2xl bg-white p-6 rounded-2xl card">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="text-xl font-semibold text-gray-800">Matérias</h1>
+        <p class="text-sm text-gray-500">Matérias do 1º Ano</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button class="flex items-center border border-pink-500 text-pink-500 px-3 py-1.5 rounded-full text-sm font-medium hover:bg-pink-50 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+          Módulos
+        </button>
+
+        <button class="flex items-center bg-pink-500 text-white px-3 py-1.5 rounded-full text-sm font-medium hover:bg-pink-600 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+          Sair
+        </button>
+      </div>
+    </div>
+
+    <!-- Campo de busca -->
+    <input type="text" placeholder="Pesquisar matérias..." 
+           class="w-full mb-6 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+
+    <!-- Substituímos a lista por um select do jQuery Mobile -->
+    <label for="materia" class="block text-sm font-medium text-gray-700 mb-2">Selecione uma matéria:</label>
+    <select name="materia" id="materia" data-theme="b" data-mini="true">
+      <option value="">Escolha uma opção...</option>
+      <option value="bibliologia">Bibliologia</option>
+      <option value="evangelhos">Evangelhos</option>
+      <option value="historia">História Antiga</option>
+      <option value="pentateuco1">Pentateuco I</option>
+      <option value="pentateuco2">Pentateuco II</option>
+    </select>
+  </div>
+
+  <script>
+    $(document).on("pagecreate", function() {
+      $("#materia").selectmenu();
+    });
+  </script>
+
+</body>
+</html>

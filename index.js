@@ -50,6 +50,15 @@ app.post('/login',(req,res)=>{
 	}
 })
 
+app.get('/professores',(req,res)=>{
+	
+	knex('tb_professor').select().then(professores=>{
+		res.render('professores',{
+			professores
+		})
+	})
+})
+
 
 ///***********************************************************************************************
 app.get('/adm',async(req,res)=>{
@@ -132,10 +141,11 @@ app.get('/adm/alunos/:id_materia/:id_modulo',async (req,res)=>{
 	
 	knex('tb_materia').where({ id_materia }).select().then(result => {
 		//knex('tb_aluno').whereNotIn('id_aluno', function() {
-		knex('tb_aluno').whereIn('id_aluno', function() {
+		knex('tb_aluno').where({id_nucleo:6}).whereIn('id_aluno', function() {
 			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
 		})
       .then(alunos => {
+		  console.log('SQL:', alunos.sql);
 			res.render('adm/alunos', {
 				alunos,
 				Presente: qtde_presenca.length,
@@ -201,6 +211,9 @@ app.get('/adm/remPresenca/:id_aluno/:id_materia/:id_modulo', async(req,res)=>{
 
 
 ///***********************************************************************************************
+
+
+
 
 app.get('/modulo',async (req,res)=>{
 	//res.render('modulo')
@@ -283,9 +296,10 @@ app.get('/alunos/:id_materia/:id_modulo',async (req,res)=>{
 	const descricaoMateria = await knex('tb_materia').where({ id_materia }).select();
 	
 	knex('tb_materia').where({ id_materia }).select().then(result => {
-		knex('tb_aluno').whereNotIn('id_aluno', function() {
+		knex('tb_aluno').where({id_nucleo:6}).whereNotIn('id_aluno', function() {
 			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
 		})
+		.debug(true)
       .then(alunos => {
 			
 			res.render('alunos', {
