@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Matérias</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-6 px-4">
+
+  <div class="bg-white shadow-lg rounded-2xl w-full max-w-2xl p-6">
+
+    <!-- Cabeçalho -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">Lista de Matérias</h1>
+        <p class="text-sm text-gray-500"><%= titulo %></p>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="flex flex-wrap justify-center sm:justify-end gap-3">
+        <a href="/adm"
+          class="flex items-center gap-2 bg-gray-100 hover:bg-rose-100 text-rose-600 border border-rose-200 px-4 py-2 rounded-full font-medium text-sm transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+          Módulos
+        </a>
+
+        <a href="/"
+          class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white px-5 py-2 rounded-full font-medium text-sm shadow-md transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+          </svg>
+          Sair
+        </a>
+      </div>
+    </div>
+
+    <!-- Campo de pesquisa -->
+    <div class="mb-6">
+      <input
+        type="text"
+        id="pesquisa"
+        placeholder="Pesquisar matérias..."
+        class="w-full border rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none transition-all"
+      >
+    </div>
+
+    <!-- Lista de matérias -->
+    <div id="lista" class="flex flex-col gap-3">
+      <% materias.forEach(dados => { %>
+        <div class="aluno-item flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white border rounded-xl px-5 py-3 shadow-sm">
+          <p class="font-semibold text-gray-900 nome-aluno text-base"><%= dados.descricao %></p>
+
+          <button onclick="alunos(<%= dados.id_materia %>)"
+            class="mt-3 sm:mt-0 flex items-center justify-center gap-2 bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2h5m6 0h4" />
+              <circle cx="9" cy="7" r="4" stroke-width="2" stroke="currentColor" fill="none" />
+            </svg>
+            Alunos
+          </button>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <script>
+    const pesquisa = document.getElementById("pesquisa");
+
+    function alunos(id_materia) {
+      setTimeout(() => {
+        window.location.href = "/adm/alunos/" + id_materia + "/" + <%= id_modulo %>;
+      }, 10);
+    }
+
+    // Pesquisa em tempo real
+    pesquisa.addEventListener("input", () => {
+      const termo = pesquisa.value.toLowerCase();
+      const materias = document.querySelectorAll(".aluno-item");
+
+      materias.forEach(item => {
+        const nome = item.querySelector(".nome-aluno").textContent.toLowerCase();
+        item.style.display = nome.includes(termo) ? "flex" : "none";
+      });
+    });
+  </script>
+
+</body>
+</html>

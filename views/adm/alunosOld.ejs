@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Presença</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-6 px-4">
+
+  <div class="bg-white shadow-lg rounded-2xl w-full max-w-2xl p-6">
+
+    <!-- Cabeçalho -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">Lista de Presença </h1>
+        <div class="flex items-center gap-4 mt-2">
+			<span class="flex items-center gap-1 text-emerald-600 font-semibold text-sm">
+				<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+				<%= materia %> 
+			</span>
+			<span class="flex items-center gap-1 text-emerald-600 font-semibold text-sm">
+				<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+				Presente: <span id="presentes"><%= Presente %></span>
+			</span>
+        </div>
+      </div>
+
+      <!-- Botões -->
+      <div class="flex flex-wrap justify-center sm:justify-end gap-3">
+        <a href="/adm/materias/<%= modulo %>"
+          class="flex items-center gap-2 bg-gray-100 hover:bg-rose-100 text-rose-600 border border-rose-200 px-4 py-2 rounded-full font-medium text-sm transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+          Matérias
+        </a>
+
+        <a href="/"
+          class="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white px-5 py-2 rounded-full font-medium text-sm shadow-md transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+          </svg>
+          Sair
+        </a>
+      </div>
+    </div>
+
+    <!-- Campo de pesquisa -->
+    <div class="mb-6">
+      <input
+        type="text"
+        id="pesquisa"
+        placeholder="Pesquisar aluno..."
+        class="w-full border rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none transition-all"
+      >
+    </div>
+
+    <!-- Lista de alunos -->
+    <div id="lista" class="flex flex-col gap-3">
+      <% alunos.forEach(dados => { %>
+        <div class="aluno-item flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white border rounded-xl px-5 py-3 shadow-sm transition-all duration-200 hover:shadow-md">
+          <div>
+            <p class="font-semibold text-gray-900 nome-aluno text-base"><%= dados.nome %></p>
+            <p class="text-gray-400 text-sm status"></p>
+          </div>
+
+          <button onclick="marcarPresenca(<%= dados.id_aluno %>)"
+            class="mt-3 sm:mt-0 flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow-sm transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Presença
+          </button>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <script>
+    const pesquisa = document.getElementById("pesquisa");
+
+    function marcarPresenca(id_aluno) {
+      const postData = {
+        id_aluno,
+        id_materia: <%= id_materia %>,
+		id_modulo: <%= modulo %>,
+        data: dataAtualFormatada(),
+        hora: horaAtual()
+      };
+
+      fetch('/marcarPresenca', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(postData)
+      })
+      .then(response => {
+        if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
+        return response.json();
+      })
+      .then(() => {
+        setTimeout(() => {
+          window.location.href = `/alunos/<%= id_materia %>/<%= modulo %>`;
+        }, 100);
+      })
+      .catch(error => console.error('Erro:', error));
+    }
+
+    // Formatações de data e hora
+    function horaAtual() {
+      const data = new Date();
+      const h = String(data.getHours()).padStart(2, "0");
+      const m = String(data.getMinutes()).padStart(2, "0");
+      const s = String(data.getSeconds()).padStart(2, "0");
+      return `${h}:${m}:${s}`;
+    }
+
+    function dataAtualFormatada() {
+      const data = new Date();
+      const dia = String(data.getDate()).padStart(2, "0");
+      const mes = String(data.getMonth() + 1).padStart(2, "0");
+      const ano = data.getFullYear();
+      return `${dia}/${mes}/${ano}`;
+    }
+
+    // Pesquisa em tempo real
+    pesquisa.addEventListener("input", () => {
+      const termo = pesquisa.value.toLowerCase();
+      const alunos = document.querySelectorAll(".aluno-item");
+
+      alunos.forEach(item => {
+        const nome = item.querySelector(".nome-aluno").textContent.toLowerCase();
+        item.style.display = nome.includes(termo) ? "flex" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

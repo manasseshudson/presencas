@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matérias</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-2">
+  <div class="bg-white shadow-lg rounded-2xl w-full max-w-md p-5">
+
+    <!-- Cabeçalho -->
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-lg sm:text-xl font-bold text-gray-800">
+        Matérias
+		<p class="text-sm text-gray-500 text-green-600"><%= titulo %></p>
+      </h1>
+      <div class="flex items-center gap-2">
+        <button class="flex items-center gap-2 border border-pink-400 text-pink-500 px-3 py-1.5 rounded-full text-sm hover:bg-pink-50 transition" onclick="modulos()">
+          <span class="material-icons text-sm">menu</span> Módulos
+        </button>
+        <button class="flex items-center gap-2 bg-pink-500 text-white px-3 py-1.5 rounded-full text-sm shadow hover:bg-pink-600 transition" onclick="sair()">
+          <span class="material-icons text-sm">arrow_forward</span> Sair
+        </button>
+      </div>
+    </div>
+
+    <!-- Campo de pesquisa -->
+    <input
+      type="text"
+	  id="pesquisa"
+      placeholder="Pesquisar matérias..."
+      class="w-full border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none mb-4"
+    >
+
+    <!-- Lista de matérias -->
+    <div class="space-y-3">
+		<% materias.forEach(dados => { %>
+			<div class="border border-gray-200 rounded-xl p-3 flex items-center justify-between aluno-item">
+				<p class="font-semibold text-gray-800 nome-aluno"><%= dados.descricao %></p>
+				<button onclick="alunos(<%= dados.id_materia %>)" class="flex items-center gap-1 bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1 rounded-full text-sm transition">
+					<span class="material-icons text-xs">check</span> Alunos
+				</button>
+			</div>
+		<% }) %>
+    </div>
+  </div>
+
+  <!-- Ícones -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</body>
+</html>
+
+
+<!--
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Presença</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-2">
+  <div class="bg-white shadow-lg rounded-2xl w-full max-w-md p-5">
+
+    
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
+    
+      <div class="flex items-center justify-between w-full">
+        <h1 class="text-lg sm:text-xl font-bold text-gray-800">
+          Matérias
+        </h1>
+        <div class="flex items-center gap-2">
+          <button class="flex items-center gap-2 border border-pink-400 text-pink-500 px-3 py-1.5 rounded-full text-sm hover:bg-pink-50 transition" onclick="modulos()">
+            <span class="material-icons text-sm">menu</span> Módulos
+          </button>
+          <button class="flex items-center gap-2 bg-pink-500 text-white px-3 py-1.5 rounded-full text-sm shadow hover:bg-pink-600 transition" onclick="sair()">
+            <span class="material-icons text-sm">arrow_forward</span> Sair
+          </button>
+        </div>
+      </div>
+
+     
+    </div>
+
+    
+    <input
+      type="text"
+	  id="pesquisa"
+      placeholder="Pesquisar matérias..."
+      class="w-full border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none mb-4"
+    >
+
+    
+    <div class="space-y-3" id="lista">
+		 <% materias.forEach(dados => { %>
+			<div class="aluno-item border border-gray-200 rounded-xl p-3 ">
+				<p class="font-semibold text-gray-800 nome-aluno"><%= dados.descricao %></p>
+				<button onclick="alunos(<%= dados.id_materia %>)" class="mt-2 w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-full flex items-center justify-center gap-2 transition">
+					<span class="material-icons text-sm">check</span> Alunos
+				</button>
+			  </div>
+		<% }) %>
+
+
+    </div>
+  </div>
+
+  <!-- Ícones -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	  <script>
+    const pesquisa = document.getElementById("pesquisa");
+
+    function alunos(id_materia) {
+      setTimeout(() => {
+        window.location.href = "/adm/alunos/" + id_materia + "/" + <%= id_modulo %>;
+      }, 10);
+    }
+
+    // Pesquisa em tempo real
+    pesquisa.addEventListener("input", () => {
+      const termo = pesquisa.value.toLowerCase();
+      const materias = document.querySelectorAll(".aluno-item");
+
+      materias.forEach(item => {
+        const nome = item.querySelector(".nome-aluno").textContent.toLowerCase();
+        item.style.display = nome.includes(termo) ? "flex" : "none";
+      });
+    });
+	
+	function modulos(){
+		window.location.href = "/adm";
+	}
+	function sair(){
+		window.location.href = "/";
+	}
+	
+  </script>
+
+</body>
+</html>
