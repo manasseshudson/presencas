@@ -14,7 +14,6 @@
 	
 	  <div class="flex items-center justify-between mb-4">
       <h1 class="text-lg sm:text-xl font-bold text-gray-800">
-        Matérias
 		<p class="text-sm text-gray-500"><%= titulo %></p>
       </h1>
 	  
@@ -28,7 +27,11 @@
       </div>
     </div>
    
-
+	<div class="bg-green-100 rounded-xl p-4 text-center shadow-sm" style="margin-bottom:15px;">
+		<p class="text-black-500 text-xg">Professor: 
+			<span class="font-bold text-pink-600"><%= professor %></span>
+		</p>
+	</div>
     <!-- Campo de pesquisa -->
     <div class="mb-6">
       <input
@@ -57,7 +60,7 @@
 
     function alunos(id_materia) {
       setTimeout(() => {
-        window.location.href = "/alunos/" + id_materia + "/" + <%= id_modulo %>;
+        window.location.href = "/alunos/<%= id_professor %>/" + id_materia + "/" + <%= id_modulo %>;
       }, 10);
     }
 
@@ -73,7 +76,7 @@
     });
 	
 	function modulos(){
-		window.location.href = "/modulo";
+		window.location.href = "/modulo/<%= id_professor %>";
 	}
 	function sair(){
 		window.location.href = "/";

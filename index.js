@@ -215,7 +215,9 @@ app.get('/adm/remPresenca/:id_aluno/:id_materia/:id_modulo', async(req,res)=>{
 
 
 
-app.get('/modulo',async (req,res)=>{
+app.get('/modulo/:id_professor',async (req,res)=>{
+	const {id_professor} = req.params;
+	
 	//res.render('modulo')
 	const data = dayjs(); // Data e hora atuais
     const dataFormatada = data.format('YYYY-MM-DD');
@@ -244,7 +246,12 @@ app.get('/modulo',async (req,res)=>{
 	let qtdeTotalPresentesDia = qtdepresencas1Ano[0].qtde + qtdepresencas2Ano[0].qtde + qtdepresencasMedio[0].qtde;
 	
 	
+	const professor = await knex('tb_professor').where({id_professor}).select('nome').first();
+	
+	console.log(professor.nome);
 	res.render('modulo',{
+		id_professor,
+		professor: professor.nome,
 		qtdepresencas1Ano:qtdepresencas1Ano[0].qtde,
 		qtdepresencas2Ano:qtdepresencas2Ano[0].qtde,
 		qtdepresencasMedio:qtdepresencasMedio[0].qtde,
@@ -254,8 +261,8 @@ app.get('/modulo',async (req,res)=>{
 
 
 
-app.get('/materias/:id_modulo',(req,res)=>{
-	const { id_modulo } = req.params;
+app.get('/materias/:id_professor/:id_modulo',async (req,res)=>{
+	const { id_professor, id_modulo } = req.params;
 	
 	let titulo ="";
 	if (id_modulo=="1"){
@@ -268,10 +275,13 @@ app.get('/materias/:id_modulo',(req,res)=>{
 		titulo = "Matérias do Ensino Médio "
 	}
 	
+	const professor = await knex('tb_professor').where({id_professor}).select('nome').first();
 	
 	knex('tb_materia').where({id_modulo}).select().then(materias=>{
 		console.log(id_modulo)
 		res.render('materias', {
+			id_professor,
+			professor: professor.nome,
 			id_modulo,
 			materias,
 			titulo
@@ -280,8 +290,8 @@ app.get('/materias/:id_modulo',(req,res)=>{
 })
 
 
-app.get('/alunos/:id_materia/:id_modulo',async (req,res)=>{
-	const { id_materia, id_modulo } = req.params;
+app.get('/alunos/:id_professor/:id_materia/:id_modulo',async (req,res)=>{
+	const { id_professor, id_materia, id_modulo } = req.params;
 	let Ausente = 0;
 	
 	const data = dayjs(); // Data e hora atuais
@@ -294,6 +304,7 @@ app.get('/alunos/:id_materia/:id_modulo',async (req,res)=>{
 	.select();
 	
 	const descricaoMateria = await knex('tb_materia').where({ id_materia }).select();
+	const professor = await knex('tb_professor').where({id_professor}).select('nome').first();
 	
 	knex('tb_materia').where({ id_materia }).select().then(result => {
 		knex('tb_aluno').where({id_nucleo:6}).whereNotIn('id_aluno', function() {
@@ -303,6 +314,8 @@ app.get('/alunos/:id_materia/:id_modulo',async (req,res)=>{
       .then(alunos => {
 			
 			res.render('alunos', {
+				id_professor,
+				professor: professor.nome,
 				alunos,
 				Presente: qtde_presenca.length,
 				Ausente,
@@ -321,12 +334,13 @@ app.get('/alunos/:id_materia/:id_modulo',async (req,res)=>{
 
 
 app.post('/marcarPresenca',async (req,res)=>{
-	const {id_aluno, id_materia, id_modulo, data, hora } = req.body;
+	const {id_professor,id_aluno, id_materia, id_modulo, data, hora } = req.body;
 	
 	try{
 	
 		const presenca = await knex('tb_presenca_aula_aluno_presencial')
 		.insert({
+			id_professor,
 			id_aluno,
 			id_materia,
 			id_modulo,

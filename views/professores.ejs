@@ -72,21 +72,39 @@
       </div>
     </div>
     <!-- Select jQuery Mobile estilizado -->
-    <label for="materia" class="block text-sm font-medium text-gray-700 mb-2">Selecione uma matéria:</label>
+    <label for="materia" class="block text-sm font-medium text-gray-700 mb-2">Escolha seu nome na Lista</label>
     <select name="materia" id="materia" data-theme="b" data-mini="true" style="width: 100%;min-height: 35px;">
       <option value="">Escolha uma opção...</option>
-      <option value="bibliologia">Bibliologia</option>
-      <option value="evangelhos">Evangelhos</option>
-      <option value="historia">História Antiga</option>
-      <option value="pentateuco1">Pentateuco I</option>
-      <option value="pentateuco2">Pentateuco II</option>
+      <% professores.forEach( dados=> { %>
+		<option value="<%= dados.id_professor %>"><%= dados.nome %></option>
+      <% }) %>
     </select>
+	 <div class="flex justify-center mt-4">
+	  <button id="botaoMateria" class="flex items-center bg-pink-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-pink-600 transition">
+		<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+		  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+		</svg>
+		Matérias
+	  </button>
+</div>
+
   </div>
 
   <script>
     $(document).on("pagecreate", function() {
       $("#materia").selectmenu();
     });
+	document.getElementById('botaoMateria').addEventListener('click', function() {
+    const professoreSelecionado = document.getElementById('materia').value;
+
+    if (professoreSelecionado) {
+		//alert('professor: ' + professoreSelecionado);
+		window.location.href = "/modulo/"+professoreSelecionado;
+    } else {
+		alert('Por favor, selecione seu nome na lista.');
+    }
+  });
+	
   </script>
 
 </body>

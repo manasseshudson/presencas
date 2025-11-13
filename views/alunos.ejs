@@ -40,7 +40,11 @@
         </span>
       </div>
     </div>
-
+	<div class="bg-green-100 rounded-xl p-4 text-center shadow-sm" style="margin-bottom:15px;">
+		<p class="text-black-500 text-xg">Professor: 
+			<span class="font-bold text-pink-600"><%= professor %></span>
+		</p>
+	</div>
     <!-- Campo de pesquisa -->
     <input
       type="text"
@@ -71,6 +75,7 @@
 	
 	 function marcarPresenca(id_aluno) {
       const postData = {
+		id_professor: <%= id_professor %>,
         id_aluno,
         id_materia: <%= id_materia %>,
 		id_modulo: <%= modulo %>,
@@ -88,9 +93,7 @@
         return response.json();
       })
       .then(() => {
-        setTimeout(() => {
-          window.location.href = `/alunos/<%= id_materia %>/<%= modulo %>`;
-        }, 100);
+		window.location.href = `/alunos/<%= id_professor %>/<%= id_materia %>/<%= modulo %>`;
       })
       .catch(error => console.error('Erro:', error));
     }
@@ -99,31 +102,7 @@
 	
     const pesquisa = document.getElementById("pesquisa");
 
-    function marcarPresenca(id_aluno) {
-      const postData = {
-        id_aluno,
-        id_materia: <%= id_materia %>,
-		id_modulo: <%= modulo %>,
-        data: dataAtualFormatada(),
-        hora: horaAtual()
-      };
-
-      fetch('/marcarPresenca', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(postData)
-      })
-      .then(response => {
-        if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
-        return response.json();
-      })
-      .then(() => {
-        setTimeout(() => {
-          window.location.href = `/alunos/<%= id_materia %>/<%= modulo %>`;
-        }, 100);
-      })
-      .catch(error => console.error('Erro:', error));
-    }
+ 
 
     // Formatações de data e hora
     function horaAtual() {
@@ -155,7 +134,7 @@
 	
 	
 	function voltarMaterias(){
-		 window.location.href = `/materias/<%= modulo %>`;
+		 window.location.href = `/materias/<%= id_professor %>/<%= modulo %>`;
 	}
 	function sair(){
 		 window.location.href = `/`;
