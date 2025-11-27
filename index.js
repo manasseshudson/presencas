@@ -31,7 +31,7 @@ app.use((req, res, next) => {
     app.use(cors());
     next();
 });
-const title = 'IBADEJUF EAD'
+const title = ''
 const title_adm = ""
 
 
@@ -307,7 +307,7 @@ app.get('/alunos/:id_professor/:id_materia/:id_modulo',async (req,res)=>{
 	const professor = await knex('tb_professor').where({id_professor}).select('nome').first();
 	
 	knex('tb_materia').where({ id_materia }).select().then(result => {
-		knex('tb_aluno').where({id_nucleo:6}).whereNotIn('id_aluno', function() {
+		knex('tb_aluno').where({id_nucleo:6}).andWhere({id_modulo}).andWhere({status:0}).whereNotIn('id_aluno', function() {
 			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
 		})
 		.debug(true)
@@ -329,6 +329,104 @@ app.get('/alunos/:id_professor/:id_materia/:id_modulo',async (req,res)=>{
   })
   .catch(err => console.error(err));
 
+})
+
+
+app.get('/alunos_presentes/:id_professor/:id_materia/:id_modulo',async (req,res)=>{
+	const { id_professor, id_materia, id_modulo } = req.params;
+	let Ausente = 0;
+	
+	const data = dayjs(); // Data e hora atuais
+    const dataFormatada = data.format('YYYY-MM-DD');
+	const dataF = data.format('DD/MM/YYYY');
+	
+	
+	const qtde_presenca = await knex('tb_aluno').whereIn('id_aluno', function() {
+			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
+	});
+	
+	
+	const professor = await knex('tb_professor').where({id_professor}).select('nome').first();
+	
+	const descricaoMateria = await knex('tb_materia').where({ id_materia }).select();
+	console.log(descricaoMateria[0].descricao)
+	
+	
+	knex('tb_materia').where({ id_materia }).select().then(result => {
+		//knex('tb_aluno').whereNotIn('id_aluno', function() {
+		knex('tb_aluno').where({id_nucleo:6}).whereIn('id_aluno', function() {
+			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
+		})
+      .then(alunos => {
+		  console.log('SQL:', alunos.sql);
+			res.render('alunos_presentes', {
+				alunos,
+				Presente: qtde_presenca.length,
+				Ausente,
+				id_materia,
+				materia: descricaoMateria[0].descricao,
+				modulo: id_modulo,
+				id_professor,
+				professor: professor.nome
+			});
+      })
+      .catch(err => console.error(err));
+      
+  })
+  .catch(err => console.error(err));
+
+})
+
+
+app.get('/remPresenca/:id_professor/:id_aluno/:id_materia/:id_modulo', async(req,res)=>{
+	const { id_professor, id_aluno, id_materia, id_modulo} = req.params;
+	let Ausente = 0;
+	console.log(id_aluno + '-'+ id_materia+ '-'+ id_modulo)
+	
+	const data = dayjs(); // Data e hora atuais
+    const dataFormatada = data.format('YYYY-MM-DD');
+	const dataF = data.format('DD/MM/YYYY');
+	
+	
+	const qtde_presenca = await knex('tb_aluno').whereIn('id_aluno', function() {
+			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
+	});
+	
+	
+	const descricaoMateria = await knex('tb_materia').where({ id_materia }).select();
+	
+	
+	try{
+		knex('tb_presenca_aula_aluno_presencial').where({id_aluno}).andWhere({id_materia}).andWhere({id_modulo}).del().then(result=>{
+			knex('tb_materia').where({ id_materia }).select().then(result => {
+		//knex('tb_aluno').whereNotIn('id_aluno', function() {
+		knex('tb_aluno').whereIn('id_aluno', function() {
+			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
+		})
+		  .then(alunos => {
+				
+				res.redirect('/alunos_presentes/'+id_professor+'/'+id_materia+'/'+id_modulo)
+				
+				/*res.render('alunos_presentes', {
+					alunos,
+					Presente: qtde_presenca.length,
+					Ausente,
+					id_materia,
+					materia: descricaoMateria[0].descricao,
+					modulo: id_modulo,
+					id_professor,
+					professor:""
+				});*/
+		  })
+		  .catch(err => console.error(err));
+		  
+	  })		
+		});
+	}catch(error){
+		console.log(error)
+		
+	}
+	
 })
 
 
