@@ -21,7 +21,6 @@ app.use(bodyParser.json())
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
-
 app.use((req, res, next) => {
 	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
     res.header("Access-Control-Allow-Origin", "*");
@@ -42,6 +41,11 @@ app.use('/', adm);
 app.get('/', (req,res)=>{ 
 	res.render('login')
 })
+
+app.get('/painel', (req,res)=>{ 
+	res.render('painel')
+})
+
 app.post('/login',(req,res)=>{
 	const { email, senha } = req.body;
 	console.log(email);
