@@ -32,11 +32,9 @@ app.use((req, res, next) => {
 const title = ''
 const title_adm = ""
 
-
 const adm = require('./adm');
 
 app.use('/', adm);
-
 
 app.get('/', (req,res)=>{ 
 	res.render('login')
@@ -45,6 +43,132 @@ app.get('/', (req,res)=>{
 app.get('/painel', (req,res)=>{ 
 	res.render('painel')
 })
+
+
+app.get('/notas/:id_professor/:id_materia/:id_modulo', async (req,res)=>{ 
+	const { id_professor, id_materia, id_modulo } = req.params;
+	
+	console.log(id_professor + '-'+ id_materia + '-' + id_modulo);
+	
+	let Ausente = 0;
+	
+	const data = dayjs(); // Data e hora atuais
+    const dataFormatada = data.format('YYYY-MM-DD');
+	const dataF = data.format('DD/MM/YYYY');
+	
+	
+	const qtde_presenca = await knex('tb_presenca_aula_aluno_presencial').where({data: dataF})
+	.andWhere('tb_presenca_aula_aluno_presencial.id_materia','=', id_materia)
+	.select();
+	
+	const descricaoMateria = await knex('tb_materia').where({ id_materia }).select();
+	const professor = await knex('tb_professor').where({id_professor}).select('nome').first();
+	
+	knex('tb_materia').where({ id_materia }).select().then(result => {
+		knex('tb_aluno').where({id_nucleo:6}).andWhere({id_modulo}).andWhere({status:0}).whereNotIn('id_aluno', function() {
+			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia).andWhere({data: dataF}); // 👈 apenas dessa matéria
+		})
+		.debug(true)
+      .then(alunos => {
+			res.render('notas', {
+				id_professor,
+				professor: professor.nome,
+				alunos,
+				Presente: qtde_presenca.length,
+				Ausente,
+				id_materia,
+				materia: descricaoMateria[0].descricao,
+				modulo: id_modulo
+			});
+      })
+      .catch(err => console.error(err));
+      
+  })
+  .catch(err => console.error(err));
+
+	
+})
+
+app.get('/aluno_nota/:id_aluno/:id_professor/:id_materia/:id_modulo',async (req,res)=>{
+	const { id_aluno, id_professor, id_materia, id_modulo } = req.params;
+	
+	const data = dayjs(); // Data e hora atuais
+    const dataFormatada = data.format('YYYY-MM-DD');
+	const dataF = data.format('DD/MM/YYYY');
+	const descricaoMateria = await knex('tb_materia').where({ id_materia }).select();
+	const professor = await knex('tb_professor').where({id_professor}).select('nome').first();
+	const notasAlunos = await knex('tb_notas_alunos')
+						.where({id_aluno})
+						.andWhere({id_materia})
+						.innerJoin('tb_professor','tb_professor.id_professor','tb_notas_alunos.id_professor')
+						.select();
+	
+	knex('tb_aluno').where({id_nucleo:6}).andWhere({id_modulo}).andWhere({status:0}).andWhere({id_aluno}).select()
+	//.debug(true)
+	.then(alunos => {
+			res.render('aluno_nota', {
+				id_professor,
+				professor: professor.nome,
+				alunos,
+				nomeAluno:alunos[0].nome,
+				id_aluno,				
+				id_materia,
+				materia: descricaoMateria[0].descricao,
+				modulo: id_modulo,
+				notasAlunos
+			});
+      })
+      
+})
+
+app.get('/remNotaAluno/:id_aluno/:id_professor/:id_materia/:id_modulo/:id_notas_alunos', (req,res)=>{
+	const { id_aluno, id_professor, id_materia, id_modulo, id_notas_alunos } = req.params;
+	
+	console.log('id_aluno'+id_aluno)
+	console.log('id_professor'+id_professor)
+	console.log('id_materia'+ id_materia)
+	console.log('id_modulo'+ id_modulo)
+	
+	try{
+		knex('tb_notas_alunos').where({id_notas_alunos}).del()
+		.then(result=>{console.log(result)});
+		res.redirect('/aluno_nota/'+id_aluno+'/'+id_professor+'/'+id_materia+'/'+id_modulo)
+	}catch(error){		
+		console.log(error)
+	}
+})
+
+app.post('/enviarNota', (req,res)=>{
+	const {id_professor,id_aluno,id_materia,id_modulo,data,hora,tipo,nota} = req.body;
+	//console.log(id_aluno)
+	
+	try{
+		knex('tb_notas_alunos')
+		.insert({
+			id_professor,
+			id_aluno,
+			id_materia,
+			id_modulo,
+			data,
+			hora,
+			tipo,
+			nota
+			
+		}).then(result=>{
+			console.log(result)
+			//res.redirect('/aluno_nota/'+id_aluno+'/'+id_professor+'/'+id_materia+'/'+id_modulo)
+			res.status(200).send({mensagem : "Nota enviada com Sucesso"});
+		})
+		
+		
+	}catch(error){
+		console.log(error)
+		
+	}
+	
+			
+})
+
 
 app.post('/login',(req,res)=>{
 	const { email, senha } = req.body;
