@@ -1,45 +1,45 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head>
+
+<html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Welcome Screen - School Theme</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<title>School Login Screen</title>
+<!-- Google Fonts: Spline Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: "#2563eb", // Royal Blue
-                        secondary: "#1e40af", // Darker Blue for hover/active states
-                        "background-light": "#f3f4f6",
-                        "background-dark": "#111827",
-                        "surface-light": "#ffffff",
-                        "surface-dark": "#1f2937",
+                        "primary": "#f9f506",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23220f",
                     },
                     fontFamily: {
-                        display: ["Inter", "sans-serif"],
+                        "display": ["Spline Sans", "sans-serif"]
                     },
-                    borderRadius: {
-                        DEFAULT: "1rem",
-                        'xl': "1.5rem",
-                        '2xl': '2rem',
-                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
                 },
             },
-        };
+        }
     </script>
 <style>
-        .rounded-t-card {
-            border-top-left-radius: 2rem;
-            border-top-right-radius: 2rem;
+        /* Custom scrollbar hide for cleaner mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-    </style>
-<style>
-        body {
-            min-height: max(884px, 100dvh);
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 <style>
@@ -48,29 +48,88 @@
     }
   </style>
   </head>
-<body class="bg-background-light dark:bg-background-dark font-display h-screen flex flex-col justify-between overflow-hidden relative transition-colors duration-300">
-<div class="absolute top-0 left-0 w-full h-[60%] bg-blue-600 dark:bg-blue-900 z-0">
-<div class="absolute top-[-10%] left-1/2 transform -translate-x-1/2 w-[120%] h-[80%] rounded-full bg-blue-500/30 blur-3xl"></div>
-<img alt="Teacher actively teaching a class to students" class="w-full h-full object-cover object-top opacity-90 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDhn2i2oDC9jxq_dcQW27KF953u77IdCGOSfWRFLGuww7zLnkUTF12x5itq_DphxG2sIbIkwIW_QY3TsYpxSR3OpJ0E9EdTXuqYw2wbhUYlxRoxMKfnBs_nq0c8Aw1ZZFwkTNcjFx7omCGWH3AczWvi4Gxb0BHa3SAgRATO0tHzFO5Nu0QhCNKf06nGJgwKZpte8NCU3Xd6p10LIeUXDvWMyT2JLWiyhtoB1QPxvxbtCcEEgn57avbr7shYRycUM4rH4dwMowmRrsS"/>
-<div class="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/40"></div>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased selection:bg-primary selection:text-black">
+<div class="relative flex min-h-screen w-full flex-col justify-center overflow-hidden px-4 py-8 sm:px-6 lg:px-8">
+<!-- Decorative Background Element -->
+<div class="absolute top-[-10%] right-[-10%] w-64 h-64 rounded-full bg-primary/20 blur-3xl -z-10 dark:bg-primary/10"></div>
+<div class="absolute bottom-[-5%] left-[-5%] w-48 h-48 rounded-full bg-primary/30 blur-3xl -z-10 dark:bg-primary/10"></div>
+<div class="w-full max-w-md mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col items-center gap-6 mb-8 text-center">
+<div class="w-24 h-24 bg-center bg-no-repeat bg-cover rounded-xl shadow-lg ring-4 ring-white dark:ring-white/10" data-alt="Minimalist abstract school icon or mascot logo in yellow and white" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8FjSyZbEtI5sXiSp1z7WxL9_D3tzl-nq8J0J20GexDl5w7jFfhBgXHEx9PxIU-_H4yOL42XFEF41Vi9arKBKZN19UrSajmQqVdonttggTq83Iz1LS-gbpmn9ITVPSwuhlH2D70EopGlOYgcKdddsiBU6movZ3_Zl3-ag_vDcCJpsYcqho3ZM6VSq9OC1AfESkGMp6gdbMdOXUxr4SnqrIeRox7j-DkP737GJZ59CraBVWnTkXOWAoFNp2_0DdP5mmezfw67e5Ox9x");'>
 </div>
-<div class="flex-grow"></div>
-<div class="relative z-10 bg-surface-light dark:bg-surface-dark w-full rounded-t-card pt-10 px-8 pb-12 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.2)] flex flex-col items-center text-center transition-colors duration-300">
-<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
-            Seu <span class="text-primary">conhecimento</span>,<br/>
-            seu futuro
-        </h1>
-<p class="text-gray-600 dark:text-gray-300 text-base md:text-lg mb-10 max-w-sm mx-auto leading-relaxed">
-            Junte-se a mais de 16 milhões de pessoas que escolheram a <span class="font-bold text-gray-800 dark:text-gray-100">edutudo</span>.
-        </p>
-<button class="w-full bg-primary hover:bg-secondary text-white font-semibold py-4 px-6 rounded-full shadow-lg transform active:scale-95 transition-all duration-200 mb-6 flex items-center justify-center text-lg">
-            Entrar, já sou cliente
-        </button>
-<a class="group flex items-center justify-center text-primary font-bold text-base hover:text-secondary transition-colors duration-200" href="#">
-            Criar meu cadastro agora
-            <span class="material-symbols-outlined ml-1 text-lg transform group-hover:translate-x-1 transition-transform duration-200">chevron_right</span>
-</a>
-<div class="h-6"></div>
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+                        Portal do Aluno
+                    </h1>
+<p class="text-base font-normal text-slate-500 dark:text-slate-400">
+                        Bem-vindo de volta! Acesse para estudar.
+                    </p>
 </div>
-
+</div>
+<!-- Login Form -->
+<form class="flex flex-col gap-5">
+<!-- Email/User Field -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-slate-900 dark:text-slate-200 ml-1">
+                        E-mail ou Matrícula
+                    </label>
+<div class="relative flex items-center">
+<span class="absolute left-4 text-slate-400 dark:text-slate-500 material-symbols-outlined">person</span>
+<input class="form-input w-full h-14 pl-12 pr-4 rounded-xl border-0 bg-white dark:bg-white/5 ring-1 ring-inset ring-slate-200 dark:ring-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary focus:bg-white dark:focus:bg-white/10 transition-all shadow-sm" placeholder="ex: 2023001 ou aluno@escola.com" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center ml-1">
+<label class="text-sm font-medium text-slate-900 dark:text-slate-200">
+                            Senha
+                        </label>
+<a class="text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-primary transition-colors" href="#">
+                            Esqueceu a senha?
+                        </a>
+</div>
+<div class="relative flex items-center">
+<span class="absolute left-4 text-slate-400 dark:text-slate-500 material-symbols-outlined">lock</span>
+<input class="form-input w-full h-14 pl-12 pr-12 rounded-xl border-0 bg-white dark:bg-white/5 ring-1 ring-inset ring-slate-200 dark:ring-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary focus:bg-white dark:focus:bg-white/10 transition-all shadow-sm" placeholder="Sua senha secreta" type="password"/>
+<button class="absolute right-4 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 flex items-center justify-center" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<div class="h-2"></div>
+<!-- Submit Button -->
+<button class="w-full h-14 bg-primary hover:bg-[#e6e205] text-black font-bold text-lg rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm transition-all duration-200 flex items-center justify-center gap-2" type="button">
+<span>Entrar</span>
+<span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</form>
+<!-- Footer / Help -->
+<div class="mt-8 text-center">
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                    Ainda não tem acesso? 
+                    <a class="font-medium text-slate-900 hover:text-primary dark:text-white dark:hover:text-primary transition-colors" href="#">Fale com a secretaria</a>
+</p>
+</div>
+<!-- Quick Login Options (Optional visual filler for modernity) -->
+<div class="mt-8 flex flex-col items-center gap-4">
+<div class="relative w-full flex items-center justify-center">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase bg-background-light dark:bg-background-dark px-2 text-slate-400">
+<span>Ou entre com</span>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center justify-center w-14 h-14 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-slate-700 dark:text-slate-200">fingerprint</span>
+</button>
+<button class="flex items-center justify-center w-14 h-14 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-slate-700 dark:text-slate-200">qr_code_scanner</span>
+</button>
+</div>
+</div>
+</div>
+</div>
 </body></html>
