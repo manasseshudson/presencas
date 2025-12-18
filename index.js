@@ -40,6 +40,10 @@ app.get('/', (req,res)=>{
 	res.render('login')
 })
 
+app.get('/login', (req,res)=>{ 
+	res.render('loginv2')
+})
+
 app.get('/painel', (req,res)=>{ 
 	res.render('painel')
 })

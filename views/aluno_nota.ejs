@@ -64,7 +64,7 @@
                 <div class="col-12 col-md-8">
                     <label class="form-label fw-semibold">Tipo de Nota</label>
                     <select class="form-select" id="tipo">
-                        <option selected disabled>Selecione</option>
+                        <option selected value="Selecione" disabled>Selecione</option>
                         <option value="Prova">Prova</option>
                         <option value="Trabalho">Trabalho</option>
                         <option value="Exercícios">Exercícios</option>
@@ -145,6 +145,21 @@
 		
 		let tipo = document.getElementById('tipo').value;
 		let nota = document.getElementById('nota').value;
+		
+		console.log(nota);
+		
+		
+		if(tipo=="Selecione"){
+			alert("Informe o Tipo de Nota.");
+			return;
+		}
+		
+		if(nota==""){
+			alert("Informe uma Nota.");
+			return;
+		}
+		
+		
 		const postData = {
 			id_professor: <%= id_professor %>,
 			id_aluno: <%= id_aluno %>,

@@ -12,8 +12,23 @@ const dayjs = require('dayjs');
 console.log(dayjs().format())
 const router = express.Router();
 
+
 ///***********************************************************************************************
+
+router.get('/adm/cadprofessores',async(req,res)=>{
+	
+	knex('tb_professor')
+	.leftJoin('tb_nucleo','tb_nucleo.id_nucleo','tb_professor.id_nucleo')
+	.select().then(professores=>{
+		res.render('adm/cadProfessores',{
+			professores
+		})
+	})		
+})
+
+
 router.get('/adm',async(req,res)=>{
+
 	
 	const data = dayjs(); // Data e hora atuais
     const dataFormatada = data.format('YYYY-MM-DD');
@@ -67,7 +82,7 @@ router.get('/adm',async(req,res)=>{
 	let qtdeAlunosFaltantes = qtdeTotalAlunos[0].qtde - qtdeTotalPresentesDia;
 	
 	
-	res.render('adm/principal',{
+	res.render('adm/home',{
 		qtdepresencas1Ano:qtdepresencas1Ano[0].qtde,
 		qtdepresencas2Ano:qtdepresencas2Ano[0].qtde,
 		qtdepresencasMedio:qtdepresencasMedio[0].qtde,
@@ -169,14 +184,7 @@ router.get('/adm/remPresenca/:id_aluno/:id_materia/:id_modulo', async(req,res)=>
 			this.select('id_aluno').from('tb_presenca_aula_aluno_presencial').where('id_materia', id_materia); // 👈 apenas dessa matéria
 		})
 		  .then(alunos => {
-				res.render('adm/alunos', {
-					alunos,
-					Presente: qtde_presenca.length,
-					Ausente,
-					id_materia,
-					materia: descricaoMateria[0].descricao,
-					modulo: id_modulo
-				});
+				res.redirect('/adm')					
 		  })
 		  .catch(err => console.error(err));
 		  
@@ -188,6 +196,8 @@ router.get('/adm/remPresenca/:id_aluno/:id_materia/:id_modulo', async(req,res)=>
 	}
 	
 })
+
+
 
 
 module.exports = router;

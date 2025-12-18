@@ -1,0 +1,75 @@
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    .clock {
+      width: 260px;
+      height: 260px;
+      border-radius: 0%;
+      /*background: radial-gradient(circle at top, #1e293b, #020617);*/
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0px rgba(56,189,248,.6);
+      border: 0px solid #38bdf8;
+    }
+
+    .time {
+      color: #000;
+      text-align: center;
+    }
+
+    .hours {
+      font-size: 3.2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .seconds {
+      font-size: 1.4rem;
+      color: #000;
+    }
+
+    .date {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock">
+    <div class="time">
+      <div class="hours" id="hours">00:00</div>
+      <div class="seconds" id="seconds">00</div>
+      <div class="date" id="date">--/--/----</div>
+    </div>
+  </div>
+
+  <script>
+    function atualizarRelogio() {
+      const agora = new Date();
+
+      const horas = String(agora.getHours()).padStart(2, '0');
+      const minutos = String(agora.getMinutes()).padStart(2, '0');
+      const segundos = String(agora.getSeconds()).padStart(2, '0');
+
+      const dia = String(agora.getDate()).padStart(2, '0');
+      const mes = String(agora.getMonth() + 1).padStart(2, '0');
+      const ano = agora.getFullYear();
+
+      document.getElementById('hours').textContent = `${horas}:${minutos}`;
+      document.getElementById('seconds').textContent = segundos;
+      document.getElementById('date').textContent = `${dia}/${mes}/${ano}`;
+    }
+
+    atualizarRelogio();
+    setInterval(atualizarRelogio, 1000);
+  </script>
