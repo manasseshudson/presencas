@@ -49,6 +49,9 @@ app.get('/login', (req,res)=>{
 app.get('/modulos', (req,res)=>{ 
 	res.render('modulos')
 })
+app.get('/materiasNovas', (req,res)=>{ 
+	res.render('materiasNova')
+})
 
 
 
