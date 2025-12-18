@@ -40,9 +40,17 @@ app.get('/', (req,res)=>{
 	res.render('login')
 })
 
+
+//VERSAO 2
 app.get('/login', (req,res)=>{ 
 	res.render('loginv2')
 })
+
+app.get('/modulos', (req,res)=>{ 
+	res.render('modulos')
+})
+
+
 
 app.get('/painel', (req,res)=>{ 
 	res.render('painel')
