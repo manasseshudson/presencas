@@ -45,6 +45,11 @@ app.get('/', (req,res)=>{
 
 
 //VERSAO 2
+app.get('/splash', (req,res)=>{ 
+	res.render('splash')
+})
+
+
 app.get('/login', (req,res)=>{ 
 	res.render('loginv2')
 })

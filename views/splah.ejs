@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome Screen - School Theme</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#2563eb", // Royal Blue
+                        secondary: "#1e40af", // Darker Blue for hover/active states
+                        "background-light": "#f3f4f6",
+                        "background-dark": "#111827",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1f2937",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem",
+                        'xl': "1.5rem",
+                        '2xl': '2rem',
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        .rounded-t-card {
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display h-screen flex flex-col justify-between overflow-hidden relative transition-colors duration-300">
+<div class="absolute top-0 left-0 w-full h-[60%] bg-blue-600 dark:bg-blue-900 z-0">
+<div class="absolute top-[-10%] left-1/2 transform -translate-x-1/2 w-[120%] h-[80%] rounded-full bg-blue-500/30 blur-3xl"></div>
+<img alt="Teacher actively teaching a class to students" class="w-full h-full object-cover object-top opacity-90 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDhn2i2oDC9jxq_dcQW27KF953u77IdCGOSfWRFLGuww7zLnkUTF12x5itq_DphxG2sIbIkwIW_QY3TsYpxSR3OpJ0E9EdTXuqYw2wbhUYlxRoxMKfnBs_nq0c8Aw1ZZFwkTNcjFx7omCGWH3AczWvi4Gxb0BHa3SAgRATO0tHzFO5Nu0QhCNKf06nGJgwKZpte8NCU3Xd6p10LIeUXDvWMyT2JLWiyhtoB1QPxvxbtCcEEgn57avbr7shYRycUM4rH4dwMowmRrsS"/>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/40"></div>
+</div>
+<div class="flex-grow"></div>
+<div class="relative z-10 bg-surface-light dark:bg-surface-dark w-full rounded-t-card pt-10 px-8 pb-12 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.2)] flex flex-col items-center text-center transition-colors duration-300">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+            Seu <span class="text-primary">conhecimento</span>,<br/>
+            seu futuro
+        </h1>
+<p class="text-gray-600 dark:text-gray-300 text-base md:text-lg mb-10 max-w-sm mx-auto leading-relaxed">
+            Junte-se a mais de 16 milhões de pessoas que escolheram a <span class="font-bold text-gray-800 dark:text-gray-100">edutudo</span>.
+        </p>
+<button class="w-full bg-primary hover:bg-secondary text-white font-semibold py-4 px-6 rounded-full shadow-lg transform active:scale-95 transition-all duration-200 mb-6 flex items-center justify-center text-lg">
+            Entrar, já sou cliente
+        </button>
+<a class="group flex items-center justify-center text-primary font-bold text-base hover:text-secondary transition-colors duration-200" href="#">
+            Criar meu cadastro agora
+            <span class="material-symbols-outlined ml-1 text-lg transform group-hover:translate-x-1 transition-transform duration-200">chevron_right</span>
+</a>
+<div class="h-6"></div>
+</div>
+
+</body></html>

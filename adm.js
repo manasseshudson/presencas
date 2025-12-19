@@ -12,9 +12,6 @@ const dayjs = require('dayjs');
 console.log(dayjs().format())
 const router = express.Router();
 
-
-///***********************************************************************************************
-
 router.get('/adm/cadprofessores',async(req,res)=>{
 	
 	knex('tb_professor')
@@ -26,6 +23,24 @@ router.get('/adm/cadprofessores',async(req,res)=>{
 	})		
 })
 
+
+router.get('/adm/listagem',async(req,res)=>{
+	const alunosPresentes = await knex('tb_presenca_aula_aluno_presencial')
+								.innerJoin('tb_aluno','tb_aluno.id_aluno','tb_presenca_aula_aluno_presencial.id_aluno')
+								.innerJoin('tb_materia','tb_materia.id_materia','tb_presenca_aula_aluno_presencial.id_materia')
+								.innerJoin('tb_modulo','tb_modulo.id_modulo','tb_presenca_aula_aluno_presencial.id_modulo')
+								.innerJoin('tb_professor','tb_professor.id_professor','tb_presenca_aula_aluno_presencial.id_professor')
+								//.where({data: dataF})
+								.select('tb_aluno.id_aluno',
+										'tb_aluno.nome',
+										'tb_materia.id_materia',
+										'tb_materia.descricao as materia',
+										'tb_modulo.id_modulo',
+										'tb_modulo.descricao as modulo',
+										'tb_professor.id_professor',
+										'tb_professor.nome as professor','data','hora');
+	res.render('adm/listagem',{alunosPresentes})
+})
 
 router.get('/adm',async(req,res)=>{
 
