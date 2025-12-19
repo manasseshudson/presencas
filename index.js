@@ -49,6 +49,10 @@ app.get('/splash', (req,res)=>{
 	res.render('splash')
 })
 
+app.get('/acesso', (req,res)=>{ 
+	res.render('acesso')
+})
+
 
 app.get('/login', (req,res)=>{ 
 	res.render('loginv2')
