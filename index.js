@@ -49,8 +49,8 @@ app.get('/splash', (req,res)=>{
 	res.render('splash')
 })
 
-app.get('/acesso', (req,res)=>{ 
-	res.render('acesso')
+app.get('/mod', (req,res)=>{ 
+	res.render('mod')
 })
 
 
