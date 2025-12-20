@@ -1,97 +1,98 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IABDEJUF</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            primary: "#2563eb",
-            secondary: "#1e40af",
-            "background-light": "#f3f4f6",
-            "background-dark": "#111827",
-            "surface-light": "#ffffff",
-            "surface-dark": "#1f2937",
-          },
-          fontFamily: {
-            display: ["Inter", "sans-serif"],
-          },
-          borderRadius: {
-            DEFAULT: "1rem",
-            xl: "1.5rem",
-            "2xl": "2rem",
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student/Parent Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#5B50E5", // Purple color from reference
+              "primary-dark": "#483FC4",
+              "background-light": "#FFFFFF",
+              "background-dark": "#18181B",
+              "surface-light": "#F9FAFB",
+              "surface-dark": "#27272A",
+              "text-light": "#1F2937",
+              "text-dark": "#F3F4F6",
+              "input-bg-light": "#FFFFFF",
+              "input-bg-dark": "#27272A",
+              "input-border-light": "#E5E7EB",
+              "input-border-dark": "#3F3F46",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+              sans: ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem",
+              'xl': "1rem",
+              '2xl': "1.5rem",
+              '3xl': "2rem",
+            },
           },
         },
-      },
-    };
-  </script>
-
-  <style>
+      };
+    </script>
+<style>.curved-bottom {
+            border-bottom-left-radius: 50% 20%;
+            border-bottom-right-radius: 50% 20%;
+        }
+    </style>
+<style>
     body {
-      min-height: 100dvh;
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-
-    .rounded-t-card {
-      border-top-left-radius: 2rem;
-      border-top-right-radius: 2rem;
-    }
-
-    .botao-entrar {
-      margin-bottom: calc(16px + env(safe-area-inset-bottom));
+      min-height: max(884px, 100dvh);
     }
   </style>
-</head>
+  </head>
+<body class="bg-gray-100 dark:bg-gray-900 flex justify-center items-center min-h-screen font-display">
+<div class="w-full max-w-md h-screen sm:h-auto sm:min-h-[800px] bg-background-light dark:bg-background-dark shadow-2xl sm:rounded-[40px] overflow-hidden relative flex flex-col">
+<div class="absolute top-0 w-full px-6 py-3 flex justify-between items-center z-20 text-white font-semibold text-sm">
 
-<body class="bg-background-light dark:bg-background-dark font-display flex flex-col justify-between relative transition-colors duration-300">
+</div>
+<div class="relative w-full h-[45%] shrink-0">
+<div class="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent z-10 curved-bottom pointer-events-none"></div>
+<img alt="Stack of books and educational materials on a desk" class="w-full h-full object-cover curved-bottom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUUhLi5vsqaqLWnA8LAnVuiM7juM46dzpAnMwQJtlzS_WWluu1MpvQ1cxRzv-qm6cY73MiIfcH68xyhtupMV79E5N-jpJc1erENxEitE1-neR2VBAxUZLDB-CgSgZlIjI6AeMCZFXN4yTrg8xam4qgRPq5WiSa4CJ5TgsyRZN3847VbRIRfID5xgFGHkXRdnOne_H4WYSDzFtAkOHqmrfLR4TWdmGuxk8UpTB3cB99EG2yRVMwnHZ5dQAWILlqMkAbDgkLk3KA1fI"/>
+</div>
+<div class="flex-1 px-8 pt-6 pb-8 flex flex-col justify-start relative z-10">
+<div class="mb-6">
+<h1 class="text-3xl font-bold text-primary dark:text-primary mb-2">Olá Professor!</h1>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Seja Bem Vindo</p>
+</div>
+<form class="space-y-5" onsubmit="event.preventDefault()">
+<div class="space-y-1.5">
+<label class="block text-sm font-semibold text-primary dark:text-primary ml-1" for="email">CPF</label>
+<div class="relative">
+<input class="w-full px-4 py-3.5 rounded-xl border border-input-border-light dark:border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark text-text-light dark:text-text-dark placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200" id="email" placeholder="student@school.edu" type="email"/>
+<span class="absolute right-4 top-3.5 text-gray-400 dark:text-gray-500 material-icons">mail_outline</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="block text-sm font-semibold text-primary dark:text-primary ml-1" for="password">Senha</label>
+<div class="relative">
+<input class="w-full px-4 py-3.5 rounded-xl border border-input-border-light dark:border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark text-text-light dark:text-text-dark placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200" id="password" placeholder="Enter your password" type="password"/>
+<span class="absolute right-4 top-3.5 text-gray-400 dark:text-gray-500 material-icons cursor-pointer">visibility_off</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-xl shadow-lg shadow-primary/30 active:scale-[0.98] transition-all duration-200 mt-4" type="submit">
+                    Login
+                </button>
+<div class="text-center space-y-4 pt-2">
+<a class="block text-sm text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">
+                        Esqueceu su Senha
+                    </a>
 
-  <!-- BACKGROUND -->
-  <div class="absolute top-0 left-0 w-full h-[60%] bg-blue-600 dark:bg-blue-900 z-0">
-    <div class="absolute top-[-10%] left-1/2 transform -translate-x-1/2 w-[120%] h-[80%] rounded-full bg-blue-500/30 blur-3xl"></div>
+</div>
+</form>
+</div>
+</div>
+<button class="fixed bottom-4 right-4 p-3 bg-gray-200 dark:bg-gray-700 rounded-full shadow-lg z-50" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons text-gray-800 dark:text-white">brightness_6</span>
+</button>
 
-    <img
-      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDhn2i2oDC9jxq_dcQW27KF953u77IdCGOSfWRFLGuww7zLnkUTF12x5itq_DphxG2sIbIkwIW_QY3TsYpxSR3OpJ0E9EdTXuqYw2wbhUYlxRoxMKfnBs_nq0c8Aw1ZZFwkTNcjFx7omCGWH3AczWvi4Gxb0BHa3SAgRATO0tHzFO5Nu0QhCNKf06nGJgwKZpte8NCU3Xd6p10LIeUXDvWMyT2JLWiyhtoB1QPxvxbtCcEEgn57avbr7shYRycUM4rH4dwMowmRrsS"
-      alt="Teacher actively teaching a class to students"
-      class="w-full h-full object-cover object-top opacity-90 mix-blend-overlay"
-    />
-
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/40"></div>
-  </div>
-
-  <!-- ESPAÇO FLEX -->
-  <div class="flex-grow"></div>
-
-  <!-- CARD -->
-  <div class="relative z-10 bg-surface-light dark:bg-surface-dark w-full rounded-t-card pt-10 px-8 pb-10 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.2)] flex flex-col items-center text-center transition-colors duration-300">
-
-    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
-      Seu <span class="text-primary">conhecimento</span>,<br/>
-      seu futuro
-    </h1>
-
-    <p class="text-gray-600 dark:text-gray-300 text-base md:text-lg mb-10 max-w-sm mx-auto leading-relaxed">
-      Junte-se a mais de 16 milhões de pessoas que escolheram a
-      <span class="font-bold text-gray-800 dark:text-gray-100">edutudo</span>.
-    </p>
-	<a href="/acesso">
-    <button class="botao-entrar w-full bg-primary hover:bg-secondary text-white font-semibold py-4 px-6 rounded-full shadow-lg transform active:scale-95 transition-all duration-200 flex items-center justify-center text-lg">
-      Entrar 
-    </button></a>
-
-    <!--<a href="#" class="group flex items-center justify-center text-primary font-bold text-base hover:text-secondary transition-colors duration-200">
-      Criar meu cadastro agora
-      <span class="material-symbols-outlined ml-1 text-lg transform group-hover:translate-x-1 transition-transform duration-200">
-        chevron_right
-      </span>
-    </a>-->
-
-  </div>
-</body>
-</html>
+</body></html>
