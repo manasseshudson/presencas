@@ -53,6 +53,10 @@ app.get('/mod', (req,res)=>{
 	res.render('mod')
 })
 
+app.get('/mat', (req,res)=>{ 
+	res.render('mat')
+})
+
 
 app.get('/login', (req,res)=>{ 
 	res.render('loginv2')
