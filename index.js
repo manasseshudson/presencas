@@ -57,6 +57,9 @@ app.get('/mat', (req,res)=>{
 	res.render('mat')
 })
 
+app.get('/alu', (req,res)=>{ 
+	res.render('alu')
+})
 
 app.get('/login', (req,res)=>{ 
 	res.render('loginv2')
