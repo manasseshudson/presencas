@@ -20,7 +20,6 @@ tailwind.config = {
         "background-light": "#FFFFFF",
         "background-dark": "#18181B",
         "input-border-light": "#E5E7EB",
-        "input-border-dark": "#3F3F46",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
@@ -55,13 +54,13 @@ tailwind.config = {
   flex-col
 ">
 
-  <!-- Imagem superior -->
+  <!-- Imagem -->
   <div class="
     relative
     w-full
     h-[38vh]
     sm:h-[42vh]
-    md:h-[45vh]
+    md:h-[32vh]
     shrink-0
   ">
     <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent z-10 curved-bottom"></div>
@@ -77,36 +76,38 @@ tailwind.config = {
     flex-1
     px-6
     sm:px-8
-    md:px-10
-    pt-8
+    md:px-12
+    pt-6
+    md:pt-4
     pb-10
     flex
     flex-col
     justify-start
+    md:justify-center
   ">
-    
+
     <!-- Cabeçalho -->
-    <div class="mb-8 text-center">
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1">
+    <div class="mb-10 text-center">
+      <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold text-primary mb-2">
         Olá Professor!
       </h1>
-      <p class="text-gray-500 text-sm md:text-base">
+      <p class="text-gray-500 text-sm md:text-lg">
         Seja Bem-Vindo
       </p>
     </div>
 
-    <!-- Formulário -->
+    <!-- Form -->
     <form class="
-      space-y-6
+      space-y-8
       w-full
       max-w-md
-      md:max-w-xl
+      md:max-w-2xl
       mx-auto
     ">
-      
+
       <!-- CPF -->
       <div>
-        <label class="block text-sm md:text-base font-semibold text-primary ml-1">
+        <label class="block text-sm md:text-lg font-semibold text-primary ml-1 mb-2">
           CPF
         </label>
         <div class="relative">
@@ -115,10 +116,12 @@ tailwind.config = {
             placeholder="000.000.000-00"
             class="
               w-full
-              px-4
+              px-6
               py-4
-              md:py-5
-              rounded-xl
+              md:py-6
+              text-base
+              md:text-xl
+              rounded-2xl
               border
               border-input-border-light
               bg-white
@@ -127,7 +130,7 @@ tailwind.config = {
               focus:ring-primary
             "
           />
-          <span class="absolute right-4 top-5 md:top-6 text-gray-400 material-icons">
+          <span class="absolute right-5 top-5 md:top-7 text-gray-400 material-icons">
             badge
           </span>
         </div>
@@ -135,7 +138,7 @@ tailwind.config = {
 
       <!-- Senha -->
       <div>
-        <label class="block text-sm md:text-base font-semibold text-primary ml-1">
+        <label class="block text-sm md:text-lg font-semibold text-primary ml-1 mb-2">
           Senha
         </label>
         <div class="relative">
@@ -144,10 +147,12 @@ tailwind.config = {
             placeholder="Digite sua senha"
             class="
               w-full
-              px-4
+              px-6
               py-4
-              md:py-5
-              rounded-xl
+              md:py-6
+              text-base
+              md:text-xl
+              rounded-2xl
               border
               border-input-border-light
               bg-white
@@ -156,7 +161,7 @@ tailwind.config = {
               focus:ring-primary
             "
           />
-          <span class="absolute right-4 top-5 md:top-6 text-gray-400 material-icons cursor-pointer">
+          <span class="absolute right-5 top-5 md:top-7 text-gray-400 material-icons cursor-pointer">
             visibility_off
           </span>
         </div>
@@ -171,10 +176,10 @@ tailwind.config = {
           text-white
           font-bold
           py-4
-          md:py-5
+          md:py-6
           text-base
-          md:text-lg
-          rounded-xl
+          md:text-xl
+          rounded-2xl
           shadow-lg
           transition-all
           active:scale-95
@@ -184,8 +189,8 @@ tailwind.config = {
       </button>
 
       <!-- Esqueceu -->
-      <div class="text-center pt-2">
-        <a href="#" class="text-sm md:text-base text-gray-500 hover:text-primary">
+      <div class="text-center pt-4">
+        <a href="#" class="text-sm md:text-lg text-gray-500 hover:text-primary">
           Esqueceu sua senha?
         </a>
       </div>
