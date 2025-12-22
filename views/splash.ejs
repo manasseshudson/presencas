@@ -114,6 +114,8 @@ tailwind.config = {
           <input
             type="text"
             placeholder="000.000.000-00"
+			pattern="[0-9]*"
+			oninput="this.value = this.value.replace(/\D/g, '')"
             class="
               w-full
               px-6
