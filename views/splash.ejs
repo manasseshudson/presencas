@@ -40,43 +40,79 @@ tailwind.config = {
   border-bottom-left-radius: 50% 18%;
   border-bottom-right-radius: 50% 18%;
 }
+@media (min-width: 768px) {
+  .curved-bottom {
+    border-radius: 0;
+  }
+}
 </style>
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900 flex justify-center items-center min-h-screen font-sans">
+<body class="
+  bg-gray-100 
+  dark:bg-gray-900 
+  flex 
+  justify-center 
+  items-center 
+  md:items-start
+  min-h-screen 
+  font-sans
+  md:pt-20
+">
 
 <!-- Container principal -->
 <div class="
-  w-full 
-  sm:max-w-md 
-  md:max-w-lg 
-  lg:max-w-md
-  min-h-screen 
+  w-full
+  sm:max-w-md
+  md:max-w-4xl
+  lg:max-w-4xl
+  min-h-screen
   sm:min-h-[820px]
-  bg-background-light 
-  dark:bg-background-dark 
-  shadow-2xl 
-  sm:rounded-[40px] 
-  overflow-hidden 
-  flex 
+  md:min-h-[560px]
+  bg-background-light
+  dark:bg-background-dark
+  shadow-2xl
+  sm:rounded-[40px]
+  overflow-hidden
+  flex
   flex-col
+  md:flex-row
 ">
 
-  <!-- Imagem superior -->
-  <div class="relative w-full h-[35%] sm:h-[40%] md:h-[42%] shrink-0">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent z-10 curved-bottom"></div>
+  <!-- Imagem -->
+  <div class="
+    relative
+    w-full
+    h-[35%]
+    sm:h-[40%]
+    md:h-auto
+    md:w-1/2
+    shrink-0
+  ">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent z-10"></div>
     <img 
-      class="w-full h-full object-cover curved-bottom"
+      class="w-full h-full object-cover"
       src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUUhLi5vsqaqLWnA8LAnVuiM7juM46dzpAnMwQJtlzS_WWluu1MpvQ1cxRzv-qm6cY73MiIfcH68xyhtupMV79E5N-jpJc1erENxEitE1-neR2VBAxUZLDB-CgSgZlIjI6AeMCZFXN4yTrg8xam4qgRPq5WiSa4CJ5TgsyRZN3847VbRIRfID5xgFGHkXRdnOne_H4WYSDzFtAkOHqmrfLR4TWdmGuxk8UpTB3cB99EG2yRVMwnHZ5dQAWILlqMkAbDgkLk3KA1fI"
       alt="Educação"
     />
   </div>
 
   <!-- Conteúdo -->
-  <div class="flex-1 px-6 sm:px-8 pt-6 pb-8 flex flex-col">
+  <div class="
+    flex-1
+    px-6
+    sm:px-8
+    md:px-12
+    pt-6
+    md:pt-12
+    pb-8
+    flex
+    flex-col
+    justify-center
+  ">
     
     <!-- Cabeçalho -->
-    <div class="mb-6 text-center sm:text-left">
+    <div class="mb-8 text-center md:text-left">
       <h1 class="text-2xl sm:text-3xl font-bold text-primary mb-1">
         Olá Professor!
       </h1>
@@ -86,7 +122,7 @@ tailwind.config = {
     </div>
 
     <!-- Formulário -->
-    <form class="space-y-5">
+    <form class="space-y-6 max-w-md mx-auto md:mx-0">
       
       <!-- CPF -->
       <div>
@@ -97,9 +133,21 @@ tailwind.config = {
           <input
             type="text"
             placeholder="000.000.000-00"
-            class="w-full px-4 py-3.5 rounded-xl border border-input-border-light bg-white focus:outline-none focus:ring-2 focus:ring-primary"
+            class="
+              w-full
+              px-4
+              py-3.5
+              md:py-4
+              rounded-xl
+              border
+              border-input-border-light
+              bg-white
+              focus:outline-none
+              focus:ring-2
+              focus:ring-primary
+            "
           />
-          <span class="absolute right-4 top-3.5 text-gray-400 material-icons">
+          <span class="absolute right-4 top-4 text-gray-400 material-icons">
             badge
           </span>
         </div>
@@ -114,9 +162,21 @@ tailwind.config = {
           <input
             type="password"
             placeholder="Digite sua senha"
-            class="w-full px-4 py-3.5 rounded-xl border border-input-border-light bg-white focus:outline-none focus:ring-2 focus:ring-primary"
+            class="
+              w-full
+              px-4
+              py-3.5
+              md:py-4
+              rounded-xl
+              border
+              border-input-border-light
+              bg-white
+              focus:outline-none
+              focus:ring-2
+              focus:ring-primary
+            "
           />
-          <span class="absolute right-4 top-3.5 text-gray-400 material-icons cursor-pointer">
+          <span class="absolute right-4 top-4 text-gray-400 material-icons cursor-pointer">
             visibility_off
           </span>
         </div>
@@ -124,7 +184,19 @@ tailwind.config = {
 
       <!-- Botão -->
       <button
-        class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-xl shadow-lg transition-all active:scale-95"
+        class="
+          w-full
+          bg-primary
+          hover:bg-primary-dark
+          text-white
+          font-bold
+          py-3.5
+          md:py-4
+          rounded-xl
+          shadow-lg
+          transition-all
+          active:scale-95
+        "
       >
         Acessar
       </button>
